@@ -63,6 +63,8 @@ in
     fd
     luaPackages.tree-sitter-cli
     go
+    lua-language-server
+    stylua
     nil
     nixfmt
   ];
