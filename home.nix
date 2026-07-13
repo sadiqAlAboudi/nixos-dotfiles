@@ -10,12 +10,15 @@ in
     home.username = "sadiq";
     home.homeDirectory = "/home/sadiq";
     home.stateVersion = "26.05";
+
     programs.git = {
         enable = true;
-        userName = "sadiqAlAboudi";
-        userEmail = "sadiq.m.alaboudi@gmail.com";
-        extraConfig = {
-            init.defaultBranch = "main";
+        settings = {
+            user = {
+                name = "sadiqAlAboudi";
+                email = "sadiq.m.alaboudi@gmail.com";
+            };
+            core.editor = "vim";
         };
     };
 
@@ -28,7 +31,12 @@ in
 
     programs.ssh = {
         enable = true;
-        addKeysToAgent = "yes";
+        enableDefaultConfig = false;
+        settings = {
+            "*" = {
+            AddKeysToAgent = "yes";
+            };
+        };
     };
 
     xdg.configFile = builtins.mapAttrs (name: subpath: {
