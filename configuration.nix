@@ -1,11 +1,14 @@
-
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ 
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -29,7 +32,7 @@
   };
 
   hardware.bluetooth.enable = true;
-  
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sadiq = {
     isNormalUser = true;
@@ -50,7 +53,9 @@
     nerd-fonts.jetbrains-mono
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   system.stateVersion = "26.05";
 }
-
