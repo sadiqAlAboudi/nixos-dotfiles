@@ -3,7 +3,9 @@
 let
   dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
-  configs = {};
+  configs = {
+	nvim = "nvim";
+  };
 in
 
 {
@@ -46,13 +48,15 @@ in
     
     home.packages = with pkgs; [
     inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
-    neovim
-    ripgrep
-    nil
-    nixpkgs-fmt
-    nodejs
-    gcc
     google-chrome
     anydesk
+    neovim
+    gnumake
+    unzip
+    gcc
+    ripgrep
+    fd
+    luaPackages.tree-sitter-cli
+    go
     ];
 }
