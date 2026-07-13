@@ -10,12 +10,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos-sadiq"; # Define your hostname.
+  networking.hostName = "nixos"; # Define your hostname.
 
   networking.networkmanager.enable = true;
 
   time.timeZone = "Asia/Baghdad";
 
+  nixpkgs.config.allowUnfree = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -24,7 +25,7 @@
 
   services.xserver.xkb = {
     layout = "us,ara";
-    options = "grp:alt_shift_toggle";
+    options = "grp:win_space_toggle";
   };
 
   hardware.bluetooth.enable = true;
@@ -37,8 +38,6 @@
       tree
     ];
   };
-
-  programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim
