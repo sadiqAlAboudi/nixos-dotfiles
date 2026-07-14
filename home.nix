@@ -1,19 +1,18 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
+{ config, pkgs, inputs, ... }
 
 let
-  dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
+  dotfiles = "${config.home.homeDirectory}/nixos-configs/config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
-  configs = {
-    nvim = "nvim";
-  };
+  configs = {};
 in
 
 {
+
+  imports = [
+    ./modules
+    inputs.noctalia.homeModules.default
+  ];
+
   home.username = "sadiq";
   home.homeDirectory = "/home/sadiq";
   home.stateVersion = "26.05";
@@ -46,16 +45,24 @@ in
     };
   };
 
+  programs.noctalia = {
+    enable = true;
+    # settings = {
+    #   Configure your bars, colors, and widgets here later!
+    # };
+  };
+
   xdg.configFile = builtins.mapAttrs (name: subpath: {
     source = create_symlink "${dotfiles}/${subpath}";
     recursive = true;
   }) configs;
 
   home.packages = with pkgs; [
-    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     google-chrome
     anydesk
     neovim
     go
+    xwayland-satellite
   ];
 }
